@@ -55,3 +55,36 @@ SELECT BillingCountry, COUNT(*),
 FROM Invoice
 GROUP BY BillingCountry
 ORDER BY COUNT(*) DESC
+
+11. Most of them bought 7 albums, one person bought 6.
+SELECT CustomerID, Count(*)
+FROM Invoice
+GROUP BY CustomerId
+
+12.
+SELECT CustomerID, Count(*), SUM(Total),
+    CASE
+        WHEN SUM(Total) < 20 THEN 'Low Value'
+        WHEN SUM(Total) BETWEEN 20 and 40 THEN 'Medium Value'
+        ELSE 'High Value'
+    END AS CustomerStatus
+FROM Invoice
+GROUP BY CustomerId
+
+13.
+SELECT COUNT(*),
+    CASE
+        WHEN Total < 2 THEN 'Under $2'
+        WHEN Total BETWEEN 2 and 5 THEN '$2-$5'
+        WHEN Total BETWEEN 5 and 10 THEN '$5-$10'
+        ELSE 'Over $10'
+    END AS Invoice_Value_Distribution
+FROM Invoice
+GROUP BY Invoice_Value_Distribution
+
+14.
+SELECT CustomerId, COUNT(*) AS Total_Invoices,
+SUM(Total) AS Total_Spent, AVG(Total) AS Avereage_Spent, 
+MAX(Total) AS Most_Spent
+FROM Invoice
+GROUP BY CustomerId
